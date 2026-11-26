@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Wallofolio Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="logo" href="./"><i></i>Wallofolio <span style="font-weight:500;color:var(--muted)">admin</span></a>
+    <button class="btn btn-ghost btn-sm" id="signOut" hidden>Sign out</button>
+  </header>
+
+  <div id="notConfigured" class="banner" hidden>Add your Supabase keys to config.js first. The admin page needs a live database.</div>
+
+  <form class="panel dlg" id="login" hidden>
+    <h2>Sign in to review</h2>
+    <p class="hint">We'll email you a sign-in link. Only emails listed in the admins table can approve portfolios.</p>
+    <label>Email<input type="email" id="email" autocomplete="email" required></label>
+    <p class="err" id="loginMsg" hidden></p>
+    <div class="actions"><button class="btn btn-primary" type="submit" id="sendLink">Email me a link</button></div>
+  </form>
+
+  <section id="queue" hidden>
+    <div class="tabs" id="tabs" role="group" aria-label="Status">
+      <button data-s="pending" aria-pressed="true">Pending</button>
+      <button data-s="approved" aria-pressed="false">Approved</button>
+      <button data-s="rejected" aria-pressed="false">Rejected</button>
+    </div>
+    <p class="banner" id="notAdmin" hidden>You're signed in, but this email isn't in the admins table, so you can't see submissions. Add it in Supabase (see README).</p>
+    <div class="grid" id="list"></div>
+  </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
