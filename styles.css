@@ -165,6 +165,10 @@ a.card:hover .thumb .win{transform:translateY(-4%) scale(1.02)}
 .thumb .h{position:absolute;left:7%;top:21%;width:48%;height:9%;border-radius:4px;background:var(--t3)}
 .thumb .h2{position:absolute;left:7%;top:34%;width:32%;height:5%;border-radius:4px;background:var(--fill-2)}
 .thumb .blk{position:absolute;border-radius:8px;background:var(--t2)}
+.thumb .win{overflow:hidden}
+.thumb .shot{position:absolute;left:0;right:0;top:14%;bottom:0;width:100%;height:86%;object-fit:cover;object-position:top center;opacity:0;transform:scale(1.03);transition:opacity .8s var(--ease),transform 1.2s var(--ease)}
+.thumb .shot.ready{opacity:1;transform:none}
+.thumb .win:has(.shot.ready) .tl i{background:color-mix(in oklab,var(--t3) 40%,var(--fill-2))}
 .badge{position:absolute;top:12px;right:12px;z-index:2;background:rgba(255,255,255,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#1a7a44;font-size:11px;font-weight:600;padding:5px 10px;border-radius:980px;display:flex;align-items:center;gap:5px}
 .badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#2fbf6a}
 .meta{padding:18px 20px 20px;display:flex;flex-direction:column;gap:12px;flex:1}

@@ -58,8 +58,27 @@ function thumb(it){
   else blocks=`<div class="blk" style="left:7%;top:48%;width:54%;height:40%"></div><div class="blk" style="left:64%;top:48%;width:29%;height:18%"></div><div class="blk" style="left:64%;top:70%;width:29%;height:18%"></div>`;
   return `<div class="thumb" style="--t0:${t0};--t1:${t1};--t2:${t2};--t3:${t3}">
     ${it.otw?'<span class="badge">Open to work</span>':''}
-    <div class="win"><div class="tl"><i></i><i></i><i></i></div><div class="h"></div><div class="h2"></div>${blocks}</div></div>`;
+    <div class="win"><div class="tl"><i></i><i></i><i></i></div><div class="h"></div><div class="h2"></div>${blocks}${shotImg(it.url)}</div></div>`;
 }
+
+// Live screenshot of the portfolio, framed in the window. The sketch stays underneath
+// as a fallback while the screenshot is generated or if it can't be taken.
+const SHOT_W = 960, SHOT_H = 600;
+const shotUrl = (url, attempt) => `https://s.wordpress.com/mshots/v1/${encodeURIComponent(url)}?w=${SHOT_W}&h=${SHOT_H}${attempt?`&a=${attempt}`:""}`;
+function shotImg(url){
+  if(!/^https:\/\//i.test(url)) return "";
+  return `<img class="shot" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer" data-url="${esc(url)}" data-try="0" src="${esc(shotUrl(url,0))}">`;
+}
+// The service returns a small "generating" placeholder until the screenshot is ready; retry a few times.
+document.addEventListener("load", e => {
+  const img = e.target;
+  if(!(img instanceof HTMLImageElement) || !img.classList.contains("shot")) return;
+  if(img.naturalWidth >= SHOT_W * .9){ img.classList.add("ready"); return; }
+  const n = +img.dataset.try + 1;
+  if(n > 6) return; // give up; the sketch stays
+  img.dataset.try = n;
+  setTimeout(() => { if(img.isConnected) img.src = shotUrl(img.dataset.url, n); }, 5000 + n * 2000);
+}, true);
 window.renderCardBody = (it) => {
   const c=D[it.domains[0]].c;
   const initials=it.name.split(/\s+/).map(w=>w[0]||"").slice(0,2).join("").toUpperCase();
