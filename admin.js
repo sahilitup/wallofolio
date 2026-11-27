@@ -6,8 +6,10 @@ let current = "pending";
 
 if(!sb){ $("#notConfigured").hidden = false; return; }
 
-async function refreshAuth(){
-  const {data:{session}} = await sb.auth.getSession();
+// The session comes from onAuthStateChange. Never await Supabase calls inside that
+// callback: supabase-js holds its auth lock there, so they deadlock and hang forever.
+let session = null;
+function refreshAuth(){
   $("#login").hidden = !!session;
   $("#queue").hidden = !session;
   $("#signOut").hidden = !session;
@@ -25,8 +27,9 @@ $("#login").addEventListener("submit", async e => {
   msg.style.color = error ? "" : "var(--ok)";
   msg.textContent = error ? "Couldn't send the link: " + error.message : "Check your inbox for the sign-in link.";
 });
-$("#signOut").onclick = async () => { await sb.auth.signOut(); refreshAuth(); };
-sb.auth.onAuthStateChange(() => refreshAuth());
+$("#signOut").onclick = () => sb.auth.signOut();
+// Fires once on load (INITIAL_SESSION) and on every sign-in/out; defer work out of the callback.
+sb.auth.onAuthStateChange((_event, s) => { session = s; setTimeout(refreshAuth, 0); });
 
 $("#tabs").addEventListener("click", e => {
   const b = e.target.closest("button"); if(!b) return;
@@ -79,5 +82,4 @@ $("#list").addEventListener("click", async e => {
   b.closest(".card").remove();
 });
 
-refreshAuth();
 })();

@@ -48,7 +48,8 @@ window.DEMO_DATA = [
 window.getSupabase = function(){
   const c = window.DOMAINFOLIO_CONFIG || {};
   if(!c.SUPABASE_URL || !c.SUPABASE_ANON_KEY || !window.supabase) return null;
-  return window.supabase.createClient(c.SUPABASE_URL, c.SUPABASE_ANON_KEY);
+  // One shared client per page; several clients would fight over the same auth lock.
+  return window.__sb || (window.__sb = window.supabase.createClient(c.SUPABASE_URL, c.SUPABASE_ANON_KEY));
 };
 window.esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 window.safeUrl = u => /^https:\/\/[^\s"'<>]+$/i.test(u || "") ? u : "#";
