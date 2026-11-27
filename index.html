@@ -4,35 +4,55 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Wallofolio</title>
-<meta name="description" content="Hand-picked portfolios from people in sales, marketing, founder's office, chief of staff, finance, consulting, supply chain and HR.">
+<meta name="description" content="A wall of portfolios from people in sales, marketing, founder's office, chief of staff, finance, consulting, supply chain and HR.">
+<meta name="theme-color" content="#fbfbfd" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%231d1d1f'/%3E%3Crect x='7' y='7' width='8' height='18' rx='2.5' fill='%23fff'/%3E%3Crect x='17' y='7' width='8' height='18' rx='2.5' fill='%23fff' opacity='.55'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
-<link rel="stylesheet" href="styles.css">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap">
+<link rel="stylesheet" href="styles.css?v=2">
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <a class="logo" href="./"><i></i>Wallofolio</a>
-    <button class="btn btn-primary" id="openSubmit">Submit portfolio</button>
-  </header>
-  <section class="hero">
-    <h1>Portfolios for <em>every business role</em>.</h1>
-    <p>Hand-picked portfolios from people in sales, marketing, founder's office, chief of staff, finance, consulting, supply chain and HR. Pick a domain to see real work from people in that role.</p>
-    <div class="stats" id="stats"></div>
-  </section>
-</div>
 
-<div class="rail">
+<nav class="nav" id="nav">
   <div class="wrap">
-    <div class="rail-label"><span>Filter by domain · pick one or more</span><button id="clearDomains" hidden>Clear domains</button></div>
-    <div class="domains" id="domains" role="group" aria-label="Domains"></div>
+    <a class="logo" href="./"><i></i>Wallofolio</a>
+    <div class="nav-links">
+      <a href="#domains-sec">Domains</a>
+      <a href="#wall">The wall</a>
+      <a href="#how">How it works</a>
+      <button class="btn btn-dark btn-sm" data-submit>Submit</button>
+    </div>
+  </div>
+</nav>
+
+<header class="wrap hero">
+  <div class="eyebrow rise"><span class="dot"></span>Every portfolio reviewed by hand</div>
+  <h1 class="rise d1">Great work, <span class="grad">sorted by role.</span></h1>
+  <p class="lede rise d2">Real portfolios from people in sales, marketing, finance, consulting and more. Find your people, or join them.</p>
+  <div class="ctas rise d3">
+    <button class="btn btn-primary" data-submit>Submit your portfolio</button>
+    <a class="btn btn-link" href="#wall">Browse the wall <span class="chev">›</span></a>
+  </div>
+  <div class="stats rise d4" id="stats"></div>
+</header>
+
+<section class="wrap tiles-sec" id="domains-sec">
+  <div class="sec-head"><h2>Browse by domain. <span>Pick your world.</span></h2></div>
+  <div class="tiles" id="tiles"></div>
+</section>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="domains" id="domains" role="group" aria-label="Filter by domain"></div>
   </div>
 </div>
 
-<main class="wrap">
+<main class="wrap wall" id="wall">
   <div class="refine">
     <div class="search">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
       <input id="q" type="search" placeholder="Search name, role, company or industry" aria-label="Search">
     </div>
     <select id="industry" aria-label="Industry"></select>
@@ -44,50 +64,61 @@
       <option value="10-99">10+ years</option>
     </select>
     <select id="sort" aria-label="Sort">
-      <option value="recent">Recently added</option>
+      <option value="recent">Newest</option>
       <option value="exp-desc">Most experienced</option>
       <option value="name">Name A–Z</option>
     </select>
-    <label class="toggle"><input type="checkbox" id="otw"> Open to work</label>
+    <label class="toggle"><input type="checkbox" id="otw" role="switch"> Open to work</label>
   </div>
   <div class="banner" id="demoBanner" hidden>Demo mode: showing sample portfolios. Add your Supabase keys to config.js to go live.</div>
-  <div class="result-line" id="resultLine"></div>
-  <div class="grid" id="grid"><div class="empty"><h3>Loading portfolios…</h3></div></div>
+  <p class="result-line" id="resultLine"></p>
+  <div class="grid" id="grid"><div class="skeleton"><div></div><div></div><div></div></div></div>
 </main>
 
-<div class="wrap"><footer><span>Wallofolio · portfolios by business domain</span><span>Submissions are free and reviewed by hand.</span></footer></div>
+<section class="wrap how" id="how">
+  <div class="sec-head"><h2>Get on the wall. <span>In three steps.</span></h2></div>
+  <div class="steps">
+    <div class="step"><span class="n">01</span><h3>Share your link</h3><p>Your portfolio, deck, Notion page or website. Anything that shows your work.</p></div>
+    <div class="step"><span class="n">02</span><h3>Pick your domains</h3><p>Tag up to three, so people looking for your kind of work can find you.</p></div>
+    <div class="step"><span class="n">03</span><h3>Go live</h3><p>We review every submission by hand. Once approved, you're on the wall.</p></div>
+  </div>
+</section>
 
-<dialog id="dlg">
+<div class="wrap"><footer><span>© Wallofolio. Portfolios by business domain.</span><span>Submissions are free and reviewed by hand.</span></footer></div>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
   <form class="dlg" id="form" novalidate>
-    <h2>Submit your portfolio</h2>
-    <p class="hint">Tag the domains your work is in. Every submission is reviewed before it goes on the wall.</p>
+    <button type="button" class="close-x" id="cancel" aria-label="Close"><svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 2l8 8M10 2l-8 8"/></svg></button>
+    <h2 id="dlgTitle">Add your portfolio</h2>
+    <p class="hint">Takes a minute. We review every submission before it goes on the wall.</p>
     <label>Full name<input type="text" id="f-name" maxlength="80" autocomplete="name" required></label>
     <div class="row">
       <label>Role<select id="f-role"></select></label>
-      <label>Years of experience<input type="number" id="f-exp" min="0" max="50" value="3"></label>
+      <label>Years of experience<input type="number" id="f-exp" min="0" max="50" value="3" inputmode="numeric"></label>
     </div>
     <div class="row">
-      <label>Current company<input type="text" id="f-co" maxlength="80" autocomplete="organization"></label>
+      <label>Current company<input type="text" id="f-co" maxlength="80" autocomplete="organization" placeholder="Optional"></label>
       <label>Country<input type="text" id="f-country" maxlength="60" value="India"></label>
     </div>
-    <label>Industry you work in<select id="f-ind"></select></label>
-    <label>Portfolio link<input type="url" id="f-url" maxlength="300" placeholder="https://" required></label>
+    <label>Industry<select id="f-ind"></select></label>
+    <label>Portfolio link<input type="url" id="f-url" maxlength="300" placeholder="https://" required inputmode="url"></label>
     <div class="hp" aria-hidden="true"><label>Website<input type="text" id="f-website" tabindex="-1" autocomplete="off"></label></div>
-    <div><label style="margin-bottom:6px">Domains (up to 3)</label><div class="pick" id="f-domains"></div></div>
-    <label class="toggle" style="align-self:flex-start;font-weight:500"><input type="checkbox" id="f-otw"> I'm open to work</label>
+    <div><span class="field-label">Domains · up to 3</span><div class="pick" id="f-domains"></div></div>
+    <label class="toggle"><input type="checkbox" id="f-otw" role="switch"> I'm open to work</label>
     <p class="err" id="f-err" hidden></p>
-    <div class="actions"><button type="button" class="btn btn-ghost" id="cancel">Cancel</button><button class="btn btn-primary" type="submit" id="f-submit">Submit for review</button></div>
+    <div class="actions"><button class="btn btn-primary" type="submit" id="f-submit">Submit for review</button></div>
   </form>
-  <div class="dlg" id="thanks" hidden>
-    <h2>Thanks, you're in the queue</h2>
-    <p class="hint" style="font-size:14px">We review every portfolio by hand. Yours will appear on the wall once it's approved.</p>
-    <div class="actions"><button type="button" class="btn btn-primary" id="thanksClose">Done</button></div>
+  <div class="dlg done" id="thanks" hidden>
+    <div class="done-mark"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h2>You're in the queue.</h2>
+    <p class="hint">We review every portfolio by hand. Yours will appear on the wall once it's approved.</p>
+    <div class="actions" style="justify-content:center"><button type="button" class="btn btn-dark" id="thanksClose">Done</button></div>
   </div>
 </dialog>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
-<script src="config.js"></script>
-<script src="data.js"></script>
-<script src="app.js"></script>
+<script src="config.js?v=2"></script>
+<script src="data.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>

@@ -1,15 +1,15 @@
 // Shared lists used by the wall, the submit form and the admin page.
 // If you add or rename a domain id, update the allowed list in supabase/schema.sql too.
 window.DOMAINS = [
-  {id:"sales", name:"Sales", ic:"↗", c:"#2b47e6"},
-  {id:"marketing", name:"Marketing", ic:"✶", c:"#d0397a"},
-  {id:"founders-office", name:"Founder's Office", ic:"◆", c:"#6a4be0"},
-  {id:"chief-of-staff", name:"Chief of Staff", ic:"★", c:"#7a5c2e"},
-  {id:"finance", name:"Finance", ic:"₹", c:"#18a57a"},
-  {id:"consulting", name:"Consulting", ic:"◐", c:"#1b8fb8"},
-  {id:"supply-chain", name:"Supply Chain", ic:"⇄", c:"#e0732b"},
-  {id:"hr", name:"HR & People", ic:"☺", c:"#c99a12"},
-  {id:"others", name:"Others", ic:"…", c:"#4b6378"},
+  {id:"sales", name:"Sales", ic:"↗", c:"#2b47e6", blurb:"Closers, AEs and BD"},
+  {id:"marketing", name:"Marketing", ic:"✶", c:"#d0397a", blurb:"Brand, growth and content"},
+  {id:"founders-office", name:"Founder's Office", ic:"◆", c:"#6a4be0", blurb:"Generalists close to the CEO"},
+  {id:"chief-of-staff", name:"Chief of Staff", ic:"★", c:"#7a5c2e", blurb:"Operators who run the room"},
+  {id:"finance", name:"Finance", ic:"₹", c:"#18a57a", blurb:"Analysts, IB and FP&A"},
+  {id:"consulting", name:"Consulting", ic:"◐", c:"#1b8fb8", blurb:"Strategy and management"},
+  {id:"supply-chain", name:"Supply Chain", ic:"⇄", c:"#e0732b", blurb:"Ops, procurement, logistics"},
+  {id:"hr", name:"HR & People", ic:"☺", c:"#c99a12", blurb:"Talent and people teams"},
+  {id:"others", name:"Others", ic:"…", c:"#4b6378", blurb:"Everything in between"},
 ];
 window.TITLES = ["Sales Manager","Account Executive","Business Development Associate","Marketing Manager","Growth Marketer","Brand Manager","Founder's Office Associate","Chief of Staff","Financial Analyst","Investment Banking Analyst","Management Consultant","Strategy Consultant","Supply Chain Manager","Procurement Lead","HR Business Partner","Talent Acquisition Lead","Product Manager","Operations Manager","MBA Intern","Other"];
 window.INDUSTRIES = ["Fintech","Consumer & D2C","E‑commerce","SaaS & B2B","FMCG","Consulting firm","Banking","Healthcare","Edtech","Manufacturing","Logistics","Startup (early stage)"];
